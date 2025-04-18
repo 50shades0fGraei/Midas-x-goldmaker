@@ -1,11 +1,11 @@
 # Midas-x-goldmaker
 Trading app for crypto
-# MidasBigdick - RANDALL LUJAN
+# Midas - RANDALL LUJAN
 *From $50 to Millions - 4-17 Pride!*
 
 **Midas x golmaker** is a crypto trading powerhouse by **RANDALL LUJAN**, packin’ nine algos (**Midas Day, Week, Month, 1-5, X**) for 50%-9012.34% quarterly ROIs on SHIB, DOGS, BTC, ETH, and more. Free algos (**Day, Week, Month, 1-2**) hook newbies; paid tiers (**3-5, X**) unlock billions. Powers a v0 app with a simulator, PIN login, and 10% daily profits to **meta2graei@gmail.com** via PayPal. Runs on an Obama phone, licensed under **Graeitrade Commercial License**. *9-0-1 Digits, Let’s Go!*
 
-## Why MidasBigdick?
+## Why Midas ?
 - **Crush Volatility**: Swing trades (3-8%) with 2x-6x multipliers.
 - **Cascades**: 50-80% profits roll daily → weekly → monthly.
 - **Scalable**: $50 on **Midas Day** to $90K on **Midas X** from $100.
