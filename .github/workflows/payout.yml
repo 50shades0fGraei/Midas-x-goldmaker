@@ -1,0 +1,92 @@
+name: MidasBigdick 10% Daily Payout
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Daily at midnight UTC
+  workflow_dispatch: # Manual trigger
+
+jobs:
+  payout:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install yfinance pandas numpy python-dotenv requests
+
+      - name: Create .env
+        run: |
+          echo "BINANCE_API_KEY=${{ secrets.BINANCE_API_KEY }}" >> .env
+          echo "BINANCE_API_SECRET=${{ secrets.BINANCE_API_SECRET }}" >> .env
+          echo "PAYPAL_CLIENT_ID=${{ secrets.PAYPAL_CLIENT_ID }}" >> .env
+          echo "PAYPAL_CLIENT_SECRET=${{ secrets.PAYPAL_CLIENT_SECRET }}" >> .env
+
+      - name: Run algos and calculate 10% payout
+        run: |
+          python -c "
+          import sys
+          sys.path.append('.')
+          from midas_day import run_midas_day
+          from midas_week import run_midas_week
+          from midas_month import run_midas_month
+          from midas_1 import run_midas_1
+          from midas_2 import run_midas_2
+          from midas_3 import run_midas_3
+          from midas_4 import run_midas_4
+          from midas_5 import run_midas_5
+          from midas_x import run_midas_x
+          algos = [
+              ('Day', run_midas_day, 50),
+              ('Week', run_midas_week, 75),
+              ('Month', run_midas_month, 100),
+              ('1', run_midas_1, 100),
+              ('2', run_midas_2, 200),
+              ('3', run_midas_3, 500),
+              ('4', run_midas_4, 1000),
+              ('5', run_midas_5, 2000),
+              ('X', run_midas_x, 100)
+          ]
+          total_payout = 0
+          for name, algo, fund in algos:
+              result = algo(fund)
+              payout = result['total_profits'] * 0.1
+              total_payout += payout
+              print(f'{name}: Profits=${result['total_profits']:.2f}, 10% Payout=${payout:.2f}')
+          print(f'Total 10% Payout: ${total_payout:.2f}')
+          import requests
+          headers = {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ${{ secrets.PAYPAL_ACCESS_TOKEN }}'
+          }
+          data = {
+              'sender_batch_header': {'email_subject': 'MidasBigdick Royalty'},
+              'items': [{
+                  'recipient_type': 'EMAIL',
+                  'amount': {'value': f'{total_payout:.2f}', 'currency': 'USD'},
+                  'receiver': 'meta2graei@gmail.com'
+              }]
+          }
+          response = requests.post('https://api.paypal.com/v1/payments/payouts',
+                                  headers=headers,
+                                  json=data)
+          print(f'PayPal Response: {response.status_code}')
+          "
+
+      - name: Log payout
+        run: echo "Payout complete: $(date)" >> payout_log.txt
+
+      - name: Commit log
+        run: |
+          git config user.name "MidasBigdick Bot"
+          git config user.email "meta2graei@gmail.com"
+          git add payout_log.txt
+          git commit -m "Update payout log - 4-17" || true
+          git push
