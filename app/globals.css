@@ -3,64 +3,26 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 18, 18, 18;
-  --background-end-rgb: 10, 10, 10;
+  --foreground: 255, 255, 255;
+  --background: 18, 18, 18;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+  color: rgb(var(--foreground));
+  background-color: rgb(var(--background));
 }
 
+/* Define custom classes properly within layers */
 @layer components {
   .gold-gradient {
-    background: linear-gradient(135deg, #ffd700 0%, #d4af37 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  .cyberpunk-border {
-    @apply border border-gold relative;
-    position: relative;
-  }
-
-  .cyberpunk-border::before {
-    content: "";
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(135deg, #ffd700 0%, transparent 50%, #ffd700 100%);
-    z-index: -1;
-    opacity: 0.3;
-  }
-
-  .gold-button {
-    @apply bg-gold text-black font-bold py-2 px-4 rounded transition-all;
-    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-  }
-
-  .gold-button:hover {
-    @apply bg-gold-light;
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
-  }
-
-  .gold-button:active {
-    @apply bg-gold-dark;
-    box-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
-  }
-
-  .dark-card {
-    @apply bg-dark-lighter rounded-lg border border-gray-800 p-4 shadow-md;
+    @apply bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent;
   }
 
   .gold-card {
-    @apply bg-dark-lighter rounded-lg border border-gold p-4 shadow-gold;
+    @apply bg-gray-900 border border-yellow-400 rounded-lg p-4 shadow-lg;
   }
 
-  .gold-input {
-    @apply bg-dark-light border border-gray-700 focus:border-gold focus:ring-1 focus:ring-gold rounded-md px-3 py-2 text-white;
+  .gold-button {
+    @apply bg-yellow-400 text-black font-bold py-2 px-4 rounded transition-all hover:bg-yellow-500 active:bg-yellow-600;
   }
 }

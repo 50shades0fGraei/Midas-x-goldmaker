@@ -2,7 +2,6 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  // Keep configuration minimal to avoid issues
   eslint: {
     ignoreDuringBuilds: true,
   },
